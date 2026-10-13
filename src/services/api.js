@@ -1,9 +1,8 @@
-const rawApiUrl = import.meta.env.VITE_API_URL || '/api';
-const API_BASE = rawApiUrl.startsWith('http')
-  ? (rawApiUrl.replace(/\/+$/, '').endsWith('/api')
-      ? rawApiUrl.replace(/\/+$/, '')
-      : `${rawApiUrl.replace(/\/+$/, '')}/api`)
-  : (rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/+$/, '')}/api`);
+const rawApiUrl = (import.meta.env.VITE_API_URL || '/api').trim();
+const cleanUrl = rawApiUrl.replace(/\/+$/, '');
+const API_BASE = cleanUrl.startsWith('http')
+  ? (cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`)
+  : (cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`);
 
 /**
  * Core API client with token injection and unified error handling
